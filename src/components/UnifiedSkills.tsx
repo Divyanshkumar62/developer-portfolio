@@ -28,30 +28,41 @@ interface SkillConnection {
 }
 
 const skillsData: Skill[] = [
-  { name: "React", percentage: 90, icon: <Code size={16} />, category: "Frontend", proficiency: "Expert" },
-  { name: "TypeScript", percentage: 85, icon: <Code size={16} />, category: "Language", proficiency: "Expert" },
-  { name: "Node.js", percentage: 85, icon: <Server size={16} />, category: "Backend", proficiency: "Expert" },
-  { name: "Python", percentage: 80, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
+  { name: "React", percentage: 95, icon: <Code size={16} />, category: "Frontend", proficiency: "Expert" },
+  { name: "TypeScript", percentage: 90, icon: <Code size={16} />, category: "Language", proficiency: "Expert" },
+  { name: "Node.js", percentage: 88, icon: <Server size={16} />, category: "Backend", proficiency: "Expert" },
   { name: "MongoDB", percentage: 85, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
-  { name: "AWS", percentage: 75, icon: <Globe size={16} />, category: "Cloud", proficiency: "Advanced" },
+  { name: "Next.js", percentage: 85, icon: <Layers size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "Tailwind CSS", percentage: 92, icon: <Code size={16} />, category: "Frontend", proficiency: "Expert" },
+  { name: "Python", percentage: 82, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
+  { name: "AWS", percentage: 78, icon: <Globe size={16} />, category: "Cloud", proficiency: "Advanced" },
   { name: "Docker", percentage: 80, icon: <Settings size={16} />, category: "DevOps", proficiency: "Advanced" },
-  { name: "GraphQL", percentage: 70, icon: <Zap size={16} />, category: "API", proficiency: "Intermediate" },
-  { name: "Three.js", percentage: 75, icon: <Layers size={16} />, category: "Graphics", proficiency: "Advanced" },
-  { name: "Machine Learning", percentage: 65, icon: <Brain size={16} />, category: "AI", proficiency: "Intermediate" }
+  { name: "GraphQL", percentage: 75, icon: <Zap size={16} />, category: "API", proficiency: "Advanced" },
+  { name: "Three.js", percentage: 78, icon: <Layers size={16} />, category: "Graphics", proficiency: "Advanced" },
+  { name: "Machine Learning", percentage: 70, icon: <Brain size={16} />, category: "AI", proficiency: "Intermediate" },
+  { name: "PostgreSQL", percentage: 85, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
+  { name: "Git", percentage: 95, icon: <Settings size={16} />, category: "DevOps", proficiency: "Expert" },
+  { name: "Jest", percentage: 85, icon: <Zap size={16} />, category: "Testing", proficiency: "Advanced" },
+  { name: "CI/CD", percentage: 80, icon: <Zap size={16} />, category: "DevOps", proficiency: "Advanced" }
 ];
 
 // Skill connections for neural network
 const skillConnections: SkillConnection[] = [
   { from: "React", to: "TypeScript", strength: 0.9 },
   { from: "TypeScript", to: "Node.js", strength: 0.8 },
+  { from: "React", to: "Next.js", strength: 0.8 },
+  { from: "Next.js", to: "Tailwind CSS", strength: 0.7 },
   { from: "Node.js", to: "MongoDB", strength: 0.7 },
-  { from: "React", to: "GraphQL", strength: 0.6 },
+  { from: "Node.js", to: "PostgreSQL", strength: 0.7 },
+  { from: "Node.js", to: "GraphQL", strength: 0.6 },
   { from: "Node.js", to: "AWS", strength: 0.8 },
   { from: "AWS", to: "Docker", strength: 0.7 },
-  { from: "Docker", to: "Python", strength: 0.6 },
-  { from: "Python", to: "Machine Learning", strength: 0.5 },
-  { from: "React", to: "Three.js", strength: 0.4 },
-  { from: "Three.js", to: "TypeScript", strength: 0.6 }
+  { from: "Docker", to: "CI/CD", strength: 0.6 },
+  { from: "CI/CD", to: "Git", strength: 0.8 },
+  { from: "React", to: "Three.js", strength: 0.5 },
+  { from: "Three.js", to: "TypeScript", strength: 0.6 },
+  { from: "Python", to: "Machine Learning", strength: 0.6 },
+  { from: "Git", to: "Jest", strength: 0.5 }
 ];
 
 // Neural Network Node Component
@@ -181,7 +192,7 @@ const NetworkNode: React.FC<{
   );
 };
 
-// Enhanced Skill Category Card
+// Unified Skill Category Card with Progress Bars
 const SkillCategoryCard: React.FC<{
   title: string;
   icon: React.ReactNode;
@@ -223,7 +234,7 @@ const SkillCategoryCard: React.FC<{
         </div>
       </div>
 
-      {/* Skills */}
+      {/* Skills with Progress Bars */}
       <div className="space-y-4">
         {skills.map((skill, index) => (
           <motion.div
@@ -283,8 +294,8 @@ const SkillCategoryCard: React.FC<{
   );
 };
 
-// Skills section components with neural network
-const SkillsNew: React.FC = () => {
+// Unified Skills Component
+const UnifiedSkills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const neuralNetworkRef = useRef<HTMLDivElement>(null);
 
@@ -293,12 +304,18 @@ const SkillsNew: React.FC = () => {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Group skills by category for legacy display
+  // Group skills by category for category cards
   const skillsByCategory = skillsData.reduce((acc, skill) => {
     if (!acc[skill.category]) acc[skill.category] = [];
     acc[skill.category].push(skill);
     return acc;
   }, {} as Record<string, Skill[]>);
+
+  // Sort categories by number of skills and importance
+  const categoryOrder = ['Frontend', 'Language', 'Backend', 'Database', 'DevOps', 'Graphics', 'AI', 'API', 'Cloud', 'Testing'];
+  const sortedCategories = categoryOrder.filter(cat => skillsByCategory[cat]).concat(
+    Object.keys(skillsByCategory).filter(cat => !categoryOrder.includes(cat))
+  );
 
   return (
     <section
@@ -335,7 +352,7 @@ const SkillsNew: React.FC = () => {
             viewport={{ once: true }}
             className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
           >
-            Interactive neural network visualization of expertise across technologies and frameworks.
+            Interactive neural network visualization of core competencies combined with detailed skill progression indicators.
           </motion.p>
         </motion.div>
 
@@ -381,15 +398,15 @@ const SkillsNew: React.FC = () => {
             >
               <div className="text-center">
                 <Brain className="text-cyan-400 mx-auto mb-1" size={24} />
-                <div className="text-xs text-cyan-400 font-semibold">Neural Network</div>
+                <div className="text-xs text-cyan-400 font-semibold">Tech Network</div>
               </div>
             </motion.div>
           </motion.div>
         </motion.div>
 
-        {/* Skill Categories Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {Object.entries(skillsByCategory).map(([category, categorySkills], index) => (
+        {/* Unified Skill Categories Grid with Progress Bars */}
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
+          {sortedCategories.map((category, index) => (
             <SkillCategoryCard
               key={category}
               title={category}
@@ -401,35 +418,73 @@ const SkillsNew: React.FC = () => {
                 category === 'Language' ? <Code /> :
                 category === 'Graphics' ? <Layers /> :
                 category === 'AI' ? <Brain /> :
+                category === 'DevOps' ? <Settings /> :
+                category === 'API' ? <Zap /> :
+                category === 'Testing' ? <Zap /> :
                 <Settings />
               }
-              skills={categorySkills}
+              skills={skillsByCategory[category]}
               gradient="from-cyan-400 to-blue-500"
               delay={index * 0.1}
             />
           ))}
         </div>
 
-        {/* Expert Insights Section */}
+        {/* Enhanced Expert Insights Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
-          className="text-center bg-gray-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-8"
+          className="bg-gray-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-8 mb-12"
         >
-          <h3 className="text-2xl font-bold text-white mb-4">Continuous Evolution</h3>
-          <p className="text-gray-400 leading-relaxed max-w-3xl mx-auto">
+          <div className="flex items-center justify-center mb-4">
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              className="p-3 bg-cyan-400/20 border border-cyan-400/40 rounded-lg text-cyan-400 mr-4"
+            >
+              <Brain size={24} />
+            </motion.div>
+            <h3 className="text-2xl font-bold text-white">Continuous Evolution</h3>
+          </div>
+          <p className="text-gray-400 leading-relaxed max-w-3xl mx-auto text-center">
             Technology evolves rapidly, and so do I. Currently diving deeper into AI/ML integrations,
-            advanced GPU acceleration, and WebAssembly for next-generation web experiences.
+            advanced GPU acceleration, quantum computing concepts, and next-generation web experiences
+            with WebAssembly and edge computing.
           </p>
+        </motion.div>
+
+        {/* Performance Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+        >
+          {[
+            { value: "95%", label: "Frontend", icon: <Code size={20} /> },
+            { value: "88%", label: "Backend", icon: <Server size={20} /> },
+            { value: "80%", label: "DevOps", icon: <Settings size={20} /> },
+            { value: "70%", label: "AI/ML", icon: <Brain size={20} /> }
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              whileHover={{ scale: 1.05 }}
+              className="bg-gray-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 text-center hover:border-cyan-400/40 transition-all duration-300"
+            >
+              <div className="text-cyan-400 mb-2 flex justify-center">{stat.icon}</div>
+              <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-gray-400 text-sm">{stat.label}</div>
+            </motion.div>
+          ))}
         </motion.div>
 
         {/* Smooth scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
           viewport={{ once: true }}
           className="flex justify-center mt-12 cursor-pointer"
           onClick={scrollToNext}
@@ -460,4 +515,4 @@ const SkillsNew: React.FC = () => {
   );
 };
 
-export default SkillsNew;
+export default UnifiedSkills;
