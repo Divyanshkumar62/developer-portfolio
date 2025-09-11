@@ -71,18 +71,23 @@ const Hero: React.FC = () => {
         </motion.div>
 
         {/* Subtitle/tagline */}
-        <motion.p
+        <motion.div
+          className="mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 font-light tracking-wide max-w-3xl mx-auto"
         >
-          Technology evolves rapidly, and so do I. Currently diving deeper into
-          <span className="text-cyan-400"> AI/ML integrations</span>,
-          <span className="text-purple-400"> advanced GPU acceleration</span>,
-          <span className="text-pink-400"> quantum computing concepts</span>, and
-          <span className="text-blue-400"> next-generation web experiences</span> with WebAssembly and edge computing.
-        </motion.p>
+          <motion.p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-2 font-light tracking-wide">
+            <span className="text-cyan-400">Full Stack Developer</span>
+          </motion.p>
+          <motion.p className="text-lg sm:text-xl md:text-2xl text-gray-300 font-light tracking-wide">
+            <span className="text-purple-400">React</span>
+            <span className="text-gray-500 mx-2">•</span>
+            <span className="text-blue-400">Node.js</span>
+            <span className="text-gray-500 mx-2">•</span>
+            <span className="text-pink-400">TypeScript</span>
+          </motion.p>
+        </motion.div>
 
         {/* Social Media Links */}
         <motion.div

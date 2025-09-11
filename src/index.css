@@ -96,3 +96,34 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom cursor styles - hide default cursor */
+* {
+  cursor: none !important;
+}
+
+.cursor-pointer,
+.cursor-pointer * {
+  cursor: none !important;
+}
+
+.resize,
+.resize * {
+  cursor: none !important;
+}
+
+.grab,
+.grab * {
+  cursor: none !important;
+}
+
+.grabbing,
+.grabbing * {
+  cursor: none !important;
+}
+
+.text-input,
+.cursor-text,
+.text-input * {
+  cursor: none !important;
+}
