@@ -273,7 +273,7 @@ const Navbar: React.FC = () => {
             })}
           </div>
 
-          {/* Enhanced Mobile menu button */}
+          {/* Enhanced Hamburger Menu Button */}
           <div className="md:hidden">
             <motion.button
               whileTap={{ scale: 0.95 }}
@@ -292,30 +292,57 @@ const Navbar: React.FC = () => {
                 transition={{ duration: 0.3 }}
               />
 
-              <motion.div className="relative z-10 text-xs font-semibold uppercase tracking-wider">
-                <AnimatePresence mode="wait">
-                  {isOpen ? (
-                    <motion.span
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      Close
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="menu"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      Menu
-                    </motion.span>
-                  )}
-                </AnimatePresence>
+              <motion.div className="relative z-10">
+                {/* Hamburger Icon */}
+                <motion.div
+                  className={`flex flex-col justify-center items-center w-6 h-6 relative ${isOpen ? 'space-y-0' : 'space-y-1'}`}
+                  animate={isOpen ? "open" : "closed"}
+                >
+                  <motion.span
+                    className="block w-full h-0.5 bg-current rounded-full origin-center"
+                    animate={isOpen ? {
+                      rotate: 45,
+                      y: 8,
+                      width: '75%'
+                    } : {
+                      rotate: 0,
+                      y: 0,
+                      width: '100%'
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="block w-full h-0.5 bg-current rounded-full origin-center"
+                    animate={isOpen ? {
+                      opacity: 0
+                    } : {
+                      opacity: 1
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  <motion.span
+                    className="block w-full h-0.5 bg-current rounded-full origin-center"
+                    animate={isOpen ? {
+                      rotate: -45,
+                      y: -8,
+                      width: '75%'
+                    } : {
+                      rotate: 0,
+                      y: 0,
+                      width: '100%'
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+
+                {/* Text label for accessibility */}
+                <motion.span
+                  className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-semibold uppercase tracking-wider whitespace-nowrap opacity-0"
+                  animate={{ opacity: isOpen ? 0 : 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  Menu
+                </motion.span>
               </motion.div>
 
               {/* Shimmer effect on button */}
@@ -337,6 +364,20 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
+      {/* Theme gradient overlay when mobile menu is open */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 md:hidden bg-gradient-to-br from-cyan-400/20 via-purple-400/20 to-pink-400/20 backdrop-blur-lg"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Enhanced Mobile Navigation Menu */}
       <AnimatePresence>
         {isOpen && (
@@ -345,10 +386,10 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1, height: 'auto', scaleY: 1 }}
             exit={{ opacity: 0, height: 0, scaleY: 0 }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            className="md:hidden bg-gradient-to-b from-slate-900/98 via-gray-900/98 to-black/98 backdrop-blur-2xl border-t-2 border-gradient-to-r from-cyan-400/40 via-purple-400/40 to-pink-400/40 overflow-hidden"
+            className="md:hidden fixed top-16 left-0 right-0 z-50 bg-black/95 backdrop-blur-2xl border-t-2 border-gradient-to-r from-cyan-400/40 via-purple-400/40 to-pink-400/40 overflow-hidden"
             style={{
               transformOrigin: 'top',
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8)',
             }}
           >
             {/* Mobile menu background effects */}
@@ -390,10 +431,12 @@ const Navbar: React.FC = () => {
               {navItems.map((item, index) => {
                 const isActive = activeSection === item.href.substring(1);
                 return (
-                  <motion.a
+                  <motion.div
                     key={item.name}
-                    href={item.href}
-                    onClick={(e) => scrollToSection(e, item.href)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection({ preventDefault: () => {} } as any, item.href);
+                    }}
                     initial={{ opacity: 0, x: -30, scale: 0.9 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{
@@ -403,7 +446,7 @@ const Navbar: React.FC = () => {
                     }}
                     whileHover={{ scale: 1.05, x: 10 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`group relative block px-6 py-4 rounded-2xl font-semibold transition-all duration-400 ${
+                    className={`group relative block px-6 py-4 rounded-2xl font-semibold transition-all duration-400 cursor-pointer ${
                       isActive
                         ? 'text-white scale-105'
                         : 'text-gray-300 hover:text-white'
@@ -473,7 +516,8 @@ const Navbar: React.FC = () => {
                         repeatDelay: 3
                       }}
                     />
-                  </motion.a>
+
+                  </motion.div>
                 );
               })}
             </div>

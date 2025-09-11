@@ -7,7 +7,7 @@ import {
   Send, 
   Github, 
   Linkedin, 
-  Twitter,
+  Code,
   Sparkles,
   Loader2
 } from 'lucide-react';
@@ -134,10 +134,10 @@ const Contact: React.FC = () => {
       color: "from-blue-400 to-blue-600",
     },
     {
-      icon: <Twitter size={24} />,
-      label: "Twitter",
-      href: "https://twitter.com/divyansh",
-      color: "from-cyan-400 to-cyan-600",
+      icon: <Code size={24} />,
+      label: "Dev.to",
+      href: "https://dev.to/divyansh_kumar_1",
+      color: "from-orange-400 to-orange-600",
     },
     {
       icon: <Mail size={24} />,
@@ -191,16 +191,10 @@ const Contact: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center justify-center gap-4"
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
           >
-            Let's Build Something Amazing Together
-            <motion.span
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              ✨
-            </motion.span>
+            Let's Build Something Amazing Together ✨
           </motion.h2>
           
           <motion.div 
@@ -228,7 +222,7 @@ const Contact: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}

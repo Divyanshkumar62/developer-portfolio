@@ -167,7 +167,7 @@ const Projects: React.FC = () => {
           className="text-center mb-12"
         >
           <motion.h2
-            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-8"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-8"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
@@ -197,8 +197,8 @@ const Projects: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        {/* Projects Grid - Enhanced Responsiveness */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 md:gap-8 mb-12">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
@@ -209,7 +209,7 @@ const Projects: React.FC = () => {
           <h3 className="text-2xl font-bold text-white mb-8">
             Open Source & NPM Packages
           </h3>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Code Commentor */}
             <div className="bg-gray-900/30 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6 hover:border-purple-400/40 transition-all duration-300">
               <div className="flex items-start justify-between mb-4">

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Code,
   Server,
@@ -27,73 +27,137 @@ interface SkillConnection {
   strength: number;
 }
 
+const majorSkills: Skill[] = [
+  { name: "React", percentage: 88, icon: <Code size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "HTML", percentage: 90, icon: <Code size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "JavaScript", percentage: 85, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
+  { name: "TypeScript", percentage: 85, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
+  { name: "Node.js", percentage: 85, icon: <Server size={16} />, category: "Backend", proficiency: "Advanced" },
+  { name: "Express", percentage: 80, icon: <Server size={16} />, category: "Backend", proficiency: "Advanced" },
+  { name: "MongoDB", percentage: 80, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
+  { name: "PostgreSQL", percentage: 80, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
+  { name: "Tailwind CSS", percentage: 85, icon: <Code size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "Git", percentage: 88, icon: <Settings size={16} />, category: "DevOps", proficiency: "Advanced" }
+];
+
 const skillsData: Skill[] = [
-  { name: "React", percentage: 95, icon: <Code size={16} />, category: "Frontend", proficiency: "Expert" },
-  { name: "TypeScript", percentage: 90, icon: <Code size={16} />, category: "Language", proficiency: "Expert" },
-  { name: "Node.js", percentage: 88, icon: <Server size={16} />, category: "Backend", proficiency: "Expert" },
-  { name: "MongoDB", percentage: 85, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
-  { name: "Next.js", percentage: 85, icon: <Layers size={16} />, category: "Frontend", proficiency: "Advanced" },
-  { name: "Tailwind CSS", percentage: 92, icon: <Code size={16} />, category: "Frontend", proficiency: "Expert" },
-  { name: "Python", percentage: 82, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
-  { name: "AWS", percentage: 78, icon: <Globe size={16} />, category: "Cloud", proficiency: "Advanced" },
-  { name: "Docker", percentage: 80, icon: <Settings size={16} />, category: "DevOps", proficiency: "Advanced" },
-  { name: "GraphQL", percentage: 75, icon: <Zap size={16} />, category: "API", proficiency: "Advanced" },
-  { name: "Three.js", percentage: 78, icon: <Layers size={16} />, category: "Graphics", proficiency: "Advanced" },
-  { name: "Machine Learning", percentage: 70, icon: <Brain size={16} />, category: "AI", proficiency: "Intermediate" },
-  { name: "PostgreSQL", percentage: 85, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
-  { name: "Git", percentage: 95, icon: <Settings size={16} />, category: "DevOps", proficiency: "Expert" },
-  { name: "Jest", percentage: 85, icon: <Zap size={16} />, category: "Testing", proficiency: "Advanced" },
-  { name: "CI/CD", percentage: 80, icon: <Zap size={16} />, category: "DevOps", proficiency: "Advanced" }
+  { name: "React", percentage: 88, icon: <Code size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "HTML", percentage: 90, icon: <Code size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "JavaScript", percentage: 85, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
+  { name: "TypeScript", percentage: 85, icon: <Code size={16} />, category: "Language", proficiency: "Advanced" },
+  { name: "C++", percentage: 70, icon: <Code size={16} />, category: "Language", proficiency: "Intermediate" },
+  { name: "Node.js", percentage: 85, icon: <Server size={16} />, category: "Backend", proficiency: "Advanced" },
+  { name: "Express", percentage: 80, icon: <Server size={16} />, category: "Backend", proficiency: "Advanced" },
+  { name: "MongoDB", percentage: 80, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
+  { name: "PostgreSQL", percentage: 80, icon: <Database size={16} />, category: "Database", proficiency: "Advanced" },
+  { name: "Tailwind CSS", percentage: 85, icon: <Code size={16} />, category: "Frontend", proficiency: "Advanced" },
+  { name: "Python", percentage: 75, icon: <Code size={16} />, category: "Language", proficiency: "Intermediate" },
+  { name: "Docker", percentage: 70, icon: <Settings size={16} />, category: "DevOps", proficiency: "Intermediate" },
+  { name: "REST APIs", percentage: 85, icon: <Zap size={16} />, category: "API", proficiency: "Advanced" },
+  { name: "Three.js", percentage: 65, icon: <Layers size={16} />, category: "Graphics", proficiency: "Intermediate" },
+  { name: "Framer Motion", percentage: 70, icon: <Layers size={16} />, category: "Graphics", proficiency: "Intermediate" },
+  { name: "GSAP", percentage: 60, icon: <Layers size={16} />, category: "Graphics", proficiency: "Intermediate" },
+  { name: "Machine Learning", percentage: 65, icon: <Brain size={16} />, category: "AI", proficiency: "Intermediate" },
+  { name: "Git", percentage: 88, icon: <Settings size={16} />, category: "DevOps", proficiency: "Advanced" },
+  { name: "Jest", percentage: 75, icon: <Zap size={16} />, category: "Testing", proficiency: "Intermediate" },
+  { name: "Mocha", percentage: 70, icon: <Zap size={16} />, category: "Testing", proficiency: "Intermediate" },
+  { name: "CI/CD", percentage: 70, icon: <Zap size={16} />, category: "DevOps", proficiency: "Intermediate" }
 ];
 
-// Skill connections for neural network
+// Updated skill connections for new tech stack
 const skillConnections: SkillConnection[] = [
+  // Frontend connections
+  { from: "React", to: "HTML", strength: 1.0 },
+  { from: "React", to: "JavaScript", strength: 0.9 },
   { from: "React", to: "TypeScript", strength: 0.9 },
+  { from: "JavaScript", to: "HTML", strength: 0.8 },
+  { from: "React", to: "Tailwind CSS", strength: 0.8 },
+  { from: "HTML", to: "Tailwind CSS", strength: 0.7 },
+
+  // Language connections
+  { from: "JavaScript", to: "TypeScript", strength: 0.9 },
+  { from: "JavaScript", to: "C++", strength: 0.7 },
+  { from: "Python", to: "C++", strength: 0.6 },
+
+  // Backend connections
+  { from: "Node.js", to: "Express", strength: 0.9 },
   { from: "TypeScript", to: "Node.js", strength: 0.8 },
-  { from: "React", to: "Next.js", strength: 0.8 },
-  { from: "Next.js", to: "Tailwind CSS", strength: 0.7 },
+  { from: "JavaScript", to: "Node.js", strength: 0.8 },
+
+  // Database connections
+  { from: "Express", to: "MongoDB", strength: 0.8 },
+  { from: "Express", to: "PostgreSQL", strength: 0.8 },
   { from: "Node.js", to: "MongoDB", strength: 0.7 },
-  { from: "Node.js", to: "PostgreSQL", strength: 0.7 },
-  { from: "Node.js", to: "GraphQL", strength: 0.6 },
-  { from: "Node.js", to: "AWS", strength: 0.8 },
-  { from: "AWS", to: "Docker", strength: 0.7 },
-  { from: "Docker", to: "CI/CD", strength: 0.6 },
-  { from: "CI/CD", to: "Git", strength: 0.8 },
-  { from: "React", to: "Three.js", strength: 0.5 },
+
+  // API connections
+  { from: "Express", to: "REST APIs", strength: 0.9 },
+  { from: "Node.js", to: "REST APIs", strength: 0.8 },
+
+  // DevOps connections
+  { from: "Node.js", to: "Docker", strength: 0.8 },
+  { from: "Docker", to: "CI/CD", strength: 0.7 },
+  { from: "CI/CD", to: "Git", strength: 0.9 },
+
+  // Graphics connections
+  { from: "React", to: "Framer Motion", strength: 0.8 },
+  { from: "React", to: "Three.js", strength: 0.8 },
+  { from: "JavaScript", to: "GSAP", strength: 0.7 },
   { from: "Three.js", to: "TypeScript", strength: 0.6 },
-  { from: "Python", to: "Machine Learning", strength: 0.6 },
-  { from: "Git", to: "Jest", strength: 0.5 }
+  { from: "GSAP", to: "Framer Motion", strength: 0.8 },
+
+  // Testing connections
+  { from: "Node.js", to: "Jest", strength: 0.8 },
+  { from: "Node.js", to: "Mocha", strength: 0.7 },
+  { from: "Jest", to: "JavaScript", strength: 0.6 },
+
+  // AI/ML connections
+  { from: "Python", to: "Machine Learning", strength: 0.7 }
 ];
 
-// Neural Network Node Component
+// Simplified Neural Network Node Component (No Pulsating Effects)
 const NetworkNode: React.FC<{
   skill: Skill;
   connections: SkillConnection[];
   allSkills: Skill[];
   index: number;
 }> = ({ skill, connections, allSkills, index }) => {
+  // Only show direct connections (simplified)
   const connectedSkills = connections
     .filter(conn => conn.from === skill.name || conn.to === skill.name)
     .map(conn => conn.from === skill.name ? conn.to : conn.from);
 
-  const getSkillPosition = (skillName: string) => {
-    const skillIndex = allSkills.findIndex(s => s.name === skillName);
+  // Responsive positioning with containment
+  const getSkillPosition = () => {
+    const skillIndex = allSkills.findIndex(s => s.name === skill.name);
     const angle = (skillIndex / allSkills.length) * 2 * Math.PI;
-    const radius = 150 + (skill.percentage / 100) * 80;
+
+    // Responsive radius based on screen size
+    const isMobile = window.innerWidth < 768;
+    const baseRadius = isMobile ? 120 : 180; // Smaller radius for mobile
+    const radius = baseRadius + (skill.percentage / 100) * (isMobile ? 30 : 50);
+
+    // Apply bounds to prevent overflow - using viewport-relative units
+    const maxX = (window.innerWidth / 2) - 30; // Account for padding and node size
+    const maxY = (window.innerHeight / 2) - 50; // Account for center hub
+
+    const x = Math.max(-maxX, Math.min(maxX, Math.cos(angle) * radius));
+    const y = Math.max(-maxY, Math.min(maxY, Math.sin(angle) * radius));
+
     return {
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius
+      x: x,
+      y: y,
+      radius: radius
     };
   };
 
   const proficiencyColors = {
-    Beginner: 'rgb(252, 165, 165)', // red
-    Intermediate: 'rgb(251, 191, 36)', // yellow
-    Advanced: 'rgb(34, 197, 94)', // green
-    Expert: 'rgb(6, 182, 212)' // cyan
+    Beginner: 'rgb(252, 165, 165)',
+    Intermediate: 'rgb(251, 191, 36)',
+    Advanced: 'rgb(34, 197, 94)',
+    Expert: 'rgb(6, 182, 212)'
   };
 
-  const nodePos = getSkillPosition(skill.name);
+  const position = getSkillPosition();
 
   return (
     <motion.div
@@ -101,11 +165,11 @@ const NetworkNode: React.FC<{
       whileInView={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true, margin: "-100px" }}
-      whileHover={{ scale: 1.2 }}
+      whileHover={{ scale: 1.15 }}
       className="absolute transform -translate-x-1/2 -translate-y-1/2"
       style={{
-        left: `calc(50% + ${nodePos.x}px)`,
-        top: `calc(50% + ${nodePos.y}px)`
+        left: `calc(50% + ${position.x}px)`,
+        top: `calc(50% + ${position.y}px)`
       }}
     >
       {/* Neural Network Connections */}
@@ -125,15 +189,15 @@ const NetworkNode: React.FC<{
           return (
             <motion.line
               key={connectedSkill}
-              x1={150 + nodePos.x}
-              y1={150 + nodePos.y}
+              x1={150 + position.x}
+              y1={150 + position.y}
               x2={150 + connectedPos.x}
               y2={150 + connectedPos.y}
               stroke={`rgba(6, 182, 212, ${opacity})`}
-              strokeWidth={connectionStrength * 3}
+              strokeWidth={connectionStrength * 2}
               initial={{ pathLength: 0 }}
               whileInView={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: index * 0.1 }}
+              transition={{ duration: 0.8, delay: index * 0.05 }}
               viewport={{ once: true }}
             />
           );
@@ -146,23 +210,6 @@ const NetworkNode: React.FC<{
         whileHover={{ scale: 1.1 }}
         transition={{ duration: 0.3 }}
       >
-        {/* Animated ring */}
-        <motion.div
-          className="absolute inset-0 rounded-full border-2 border-cyan-400 opacity-30"
-          animate={{
-            scale: [1, 1.1, 1],
-            borderWidth: [2, 4, 2],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: index * 0.2
-          }}
-          style={{
-            background: `radial-gradient(circle, ${proficiencyColors[skill.proficiency]}22 0%, transparent 70%)`
-          }}
-        />
-
         {/* Main node */}
         <div
           className="w-16 h-16 rounded-full border border-cyan-400/50 flex items-center justify-center backdrop-blur-sm shadow-lg"
@@ -176,13 +223,17 @@ const NetworkNode: React.FC<{
           </div>
         </div>
 
-        {/* Skill info tooltip */}
+        {/* Hover label */}
+        <span className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-black text-white px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          {skill.name}
+        </span>
+
+        {/* Skill info tooltip (kept for additional info) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileHover={{ opacity: 1, y: 0 }}
           className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900/90 backdrop-blur-sm border border-cyan-400/30 rounded-lg text-center opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
         >
-          <div className="text-white text-sm font-semibold">{skill.name}</div>
           <div className="text-cyan-400 text-xs">{skill.percentage}%</div>
           <div className="text-gray-400 text-xs">{skill.proficiency}</div>
           <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-cyan-400/30" />
@@ -312,7 +363,7 @@ const UnifiedSkills: React.FC = () => {
   }, {} as Record<string, Skill[]>);
 
   // Sort categories by number of skills and importance
-  const categoryOrder = ['Frontend', 'Language', 'Backend', 'Database', 'DevOps', 'Graphics', 'AI', 'API', 'Cloud', 'Testing'];
+  const categoryOrder = ['Frontend', 'Language', 'Backend', 'Database', 'DevOps', 'Graphics', 'AI', 'API', 'Testing'];
   const sortedCategories = categoryOrder.filter(cat => skillsByCategory[cat]).concat(
     Object.keys(skillsByCategory).filter(cat => !categoryOrder.includes(cat))
   );
@@ -356,28 +407,28 @@ const UnifiedSkills: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        {/* Neural Network Visualization */}
+        {/* Neural Network Visualization - Responsive */}
         <motion.div
           ref={neuralNetworkRef}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="w-full h-[600px] mb-20 relative"
+          className="w-full min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px] xl:min-h-[800px] mb-16 md:mb-20 relative"
         >
           <div className="absolute inset-0">
-            {skillsData.map((skill, index) => (
+            {majorSkills.map((skill, index) => (
               <NetworkNode
                 key={skill.name}
                 skill={skill}
                 connections={skillConnections}
-                allSkills={skillsData}
+                allSkills={majorSkills}
                 index={index}
               />
             ))}
           </div>
 
-          {/* Central hub info */}
+          {/* Central hub info - Responsive */}
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -386,7 +437,7 @@ const UnifiedSkills: React.FC = () => {
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
           >
             <motion.div
-              className="w-32 h-32 rounded-full border-4 border-cyan-400 bg-gray-900/50 backdrop-blur-xl flex items-center justify-center"
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-4 border-cyan-400 bg-gray-900/50 backdrop-blur-xl flex items-center justify-center"
               animate={{
                 boxShadow: [
                   '0 0 30px rgba(6, 182, 212, 0.3)',
@@ -397,11 +448,13 @@ const UnifiedSkills: React.FC = () => {
               transition={{ duration: 3, repeat: Infinity }}
             >
               <div className="text-center">
-                <Brain className="text-cyan-400 mx-auto mb-1" size={24} />
+                <Brain className="text-cyan-400 mx-auto mb-1" size={20} />
                 <div className="text-xs text-cyan-400 font-semibold">Tech Network</div>
               </div>
             </motion.div>
           </motion.div>
+
+
         </motion.div>
 
         {/* Unified Skill Categories Grid with Progress Bars */}
@@ -449,8 +502,8 @@ const UnifiedSkills: React.FC = () => {
           </div>
           <p className="text-gray-400 leading-relaxed max-w-3xl mx-auto text-center">
             Technology evolves rapidly, and so do I. Currently diving deeper into AI/ML integrations,
-            advanced GPU acceleration, quantum computing concepts, and next-generation web experiences
-            with WebAssembly and edge computing.
+            advanced AI agents, Web3 concepts, and next-generation web experiences
+            with new Technologies and  Frameworks.
           </p>
         </motion.div>
 
@@ -463,10 +516,10 @@ const UnifiedSkills: React.FC = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
         >
           {[
-            { value: "95%", label: "Frontend", icon: <Code size={20} /> },
-            { value: "88%", label: "Backend", icon: <Server size={20} /> },
-            { value: "80%", label: "DevOps", icon: <Settings size={20} /> },
-            { value: "70%", label: "AI/ML", icon: <Brain size={20} /> }
+            { value: "85%", label: "Frontend", icon: <Code size={20} /> },
+            { value: "82%", label: "Backend", icon: <Server size={20} /> },
+            { value: "77%", label: "DevOps", icon: <Settings size={20} /> },
+            { value: "65%", label: "AI/ML", icon: <Brain size={20} /> }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}

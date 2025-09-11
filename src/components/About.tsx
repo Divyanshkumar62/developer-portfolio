@@ -1,107 +1,23 @@
-import React, { useRef, Suspense } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll } from "framer-motion";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Text } from "@react-three/drei";
-import * as THREE from "three";
 import {
   Code,
-  Zap,
-  Cpu,
   Globe,
-  Brain,
   Layers,
   Sparkles,
   Rocket,
   Target,
-  ChevronDown,
 } from "lucide-react";
 
 
 
-// Optimized 2D Tech Stack Visualization (Performance Friendly)
-const TechStackVisualization: React.FC = () => {
-  const skills = [
-    { name: "React", icon: "⚛️", color: "#61DAFB" },
-    { name: "TypeScript", icon: "🔷", color: "#3178C6" },
-    { name: "Node.js", icon: "🟢", color: "#68C947" },
-    { name: "Next.js", icon: "▲", color: "#000000" },
-    { name: "MongoDB", icon: "🍃", color: "#47A248" },
-    { name: "Python", icon: "🐍", color: "#FFD43B" },
-  ];
 
-  return (
-    <div className="w-full h-96 md:h-[400px] bg-gradient-to-br from-slate-900/60 to-gray-900/60 rounded-xl border border-cyan-400/20 flex items-center justify-center backdrop-blur-sm relative overflow-hidden">
-      {/* Simplified background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-purple-400/5"></div>
 
-      <div className="text-center text-cyan-400 p-8 relative z-10">
-        {/* Central globe representation */}
-        <motion.div
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="relative mx-auto mb-8"
-        >
-          <div className="w-24 h-24 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 rounded-full flex items-center justify-center relative mx-auto mb-4">
-            <Globe size={32} className="text-cyan-300" />
-          </div>
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 3, repeat: Infinity }}
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/20 to-purple-400/20 blur-lg"
-          />
-        </motion.div>
-
-        <h3 className="text-lg font-semibold text-white mb-6">Core Technologies</h3>
-
-        {/* Simplified tech stack grid */}
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4 max-w-2xl mx-auto">
-          {skills.map((tech, i) => (
-            <motion.div
-              key={tech.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="text-center group cursor-pointer"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2 border border-cyan-400/40 transition-all duration-300"
-                style={{
-                  backgroundColor: `${tech.color}20`,
-                }}
-              >
-                <span className="text-lg">{tech.icon}</span>
-              </motion.div>
-              <div className="text-xs text-gray-400 group-hover:text-cyan-400 transition-colors">
-                {tech.name}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Loading fallback for 3D globe
-const GlobeFallback = () => (
-  <div className="w-full h-96 md:h-[500px] bg-gray-900/50 rounded-xl border border-cyan-400/20 flex items-center justify-center">
-    <div className="text-center text-cyan-400">
-      <Globe size={48} className="mx-auto mb-4" />
-      <p className="text-lg font-semibold">Interactive 3D Globe</p>
-      <p className="text-sm text-gray-400">Loading advanced visualization...</p>
-    </div>
-  </div>
-);
-
-// Dynamic Storytelling Timeline Component
+// Dynamic Storytelling Timeline Component - Responsive Optimized
 const StoryTimeline: React.FC = () => {
   const milestones = [
     {
-      year: "2021",
+      year: "2022",
       title: "Journey Begins",
       description:
         "Started coding journey with HTML, CSS, and JavaScript fundamentals.",
@@ -109,7 +25,7 @@ const StoryTimeline: React.FC = () => {
       color: "cyan",
     },
     {
-      year: "2022",
+      year: "2023",
       title: "Web Development",
       description:
         "Mastered React, Node.js, and built first full-stack applications.",
@@ -117,14 +33,14 @@ const StoryTimeline: React.FC = () => {
       color: "purple",
     },
     {
-      year: "2023",
+      year: "2024",
       title: "Advanced Tech Stack",
-      description: "Dived into TypeScript, GraphQL, and cloud architectures.",
+      description: "Dived into TypeScript, Docker, and Learned about testing.",
       icon: <Layers />,
       color: "pink",
     },
     {
-      year: "2024",
+      year: "2025",
       title: "Innovation Focus",
       description:
         "Specialized in AI integrations, 3D web experiences, and modern frameworks.",
@@ -136,13 +52,15 @@ const StoryTimeline: React.FC = () => {
   return (
     <div className="space-y-8 w-full max-w-6xl mx-auto px-4">
       <motion.h3
-        className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-20"
+        className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-12 md:mb-20"
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.2 }}
       >
         Development Journey
       </motion.h3>
-      <div className="relative">
+
+      {/* Desktop Timeline - Hidden on Mobile */}
+      <div className="hidden md:block relative">
         {/* Timeline line with animated gradient */}
         <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1.5 bg-gradient-to-b from-cyan-400 via-purple-400 to-pink-400 rounded-full shadow-lg">
           <motion.div
@@ -190,7 +108,7 @@ const StoryTimeline: React.FC = () => {
                 </div>
               </div>
 
-              {/* Content card with absolute positioning for precise alignment */}
+              {/* Content card with responsive positioning */}
               <div
                 className={`absolute top-1/2 transform -translate-y-1/2 w-full max-w-md ${
                   isEven ? "left-0 pr-16 md:pr-20" : "right-0 pl-16 md:pl-20"
@@ -274,90 +192,99 @@ const StoryTimeline: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Mobile Timeline - Vertical Stack */}
+      <div className="md:hidden space-y-6">
+        <div className="relative">
+          {/* Vertical timeline line on mobile */}
+          <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 via-purple-400 to-pink-400 rounded-full"></div>
+
+          {milestones.map((milestone, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="relative flex items-start space-x-4"
+            >
+              {/* Timeline dot */}
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full border-4 border-gray-900 flex items-center justify-center z-10 shadow-xl"
+              >
+                <div className="w-3 h-3 bg-white rounded-full"></div>
+              </motion.div>
+
+              {/* Content card */}
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="flex-1 bg-gray-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-4 hover:border-cyan-400/40 transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="p-2 bg-cyan-400/20 border border-cyan-400/40 rounded-lg text-cyan-400"
+                    >
+                      {milestone.icon}
+                    </motion.div>
+                    <div>
+                      <h4 className="font-bold text-white">{milestone.title}</h4>
+                      <span className="text-sm text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded-full">
+                        {milestone.year}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {milestone.description}
+                </p>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-// Typewriter Hook
-const useTypewriter = (text: string, speed: number = 50, delay: number = 0) => {
-  const [displayText, setDisplayText] = React.useState("");
-  const [isComplete, setIsComplete] = React.useState(false);
+// Enhanced Stats Component
+const StatsCard: React.FC<{
+  stat: {
+    number: string | number | undefined;
+    label: string;
+  };
+  index: number;
+  fallbackNumber?: string;
+}> = ({ stat, index, fallbackNumber = "15+" }) => {
+  let safeNumber = stat.number;
+  if (safeNumber === undefined) safeNumber = fallbackNumber;
+  else if (typeof safeNumber !== 'string') safeNumber = `${safeNumber}+`;
 
-  React.useEffect(() => {
-    if (!text) return;
-
-    const chars = text.split("");
-    const timeout = setTimeout(() => {
-      let currentIndex = 0;
-
-      const timer = setInterval(() => {
-        if (currentIndex < chars.length) {
-          setDisplayText((prev) => prev + chars[currentIndex]);
-          currentIndex++;
-        } else {
-          clearInterval(timer);
-          setIsComplete(true);
-        }
-      }, speed);
-
-      return () => clearInterval(timer);
-    }, delay);
-
-    return () => clearTimeout(timeout);
-  }, [text, speed, delay]);
-
-  return { displayText, isComplete };
-};
-
-// Typewriter Component
-const TypewriterText: React.FC<{
-  text: string;
-  className?: string;
-  delay?: number;
-  speed?: number;
-  cursor?: boolean;
-}> = ({ text, className, delay = 0, speed = 50, cursor = false }) => {
-  const { displayText, isComplete } = useTypewriter(text, speed, delay);
-  return (
-    <span className={className}>
-      {displayText}
-      {cursor && !isComplete && (
-        <span className="animate-pulse text-cyan-400 ml-1">|</span>
-      )}
-    </span>
-  );
-};
-
-// Skill Tag Component
-interface SkillTagProps {
-  icon: React.ReactNode;
-  label: string;
-  delay: number;
-}
-
-const SkillTag: React.FC<SkillTagProps> = ({ icon, label, delay }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      viewport={{ once: true }}
-      whileHover={{
-        scale: 1.05,
-        boxShadow: "0 0 30px rgba(6, 182, 212, 0.6)",
-      }}
-      className="group relative bg-gray-900/50 backdrop-blur-sm border border-cyan-400/30 rounded-lg px-4 py-3 flex items-center space-x-3 cursor-pointer transition-all duration-300 hover:border-cyan-400/60"
+      key={stat.label}
+      whileHover={{ scale: 1.05 }}
+      className="text-center p-6 bg-gray-900/40 backdrop-blur-sm border border-gray-700/30 rounded-xl hover:border-cyan-400/50 transition-all duration-300"
     >
-      <div className="text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">
-        {icon}
+      <motion.div
+        className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 1 + index * 0.5 }}
+        viewport={{ once: true }}
+      >
+        {stat.number === undefined ? fallbackNumber : typeof stat.number !== 'string' ? `${stat.number}+` : stat.number}
+      </motion.div>
+      <div className="text-gray-400 text-sm font-medium">
+        {stat.label}
       </div>
-      <span className="text-gray-300 font-medium group-hover:text-white transition-colors duration-300">
-        {label}
-      </span>
-      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-400/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </motion.div>
   );
 };
+
+
 
 // Main About Component
 const About: React.FC = () => {
@@ -367,16 +294,7 @@ const About: React.FC = () => {
     offset: ["start end", "end start"],
   });
 
-  const skills = [
-    { icon: <Layers size={20} />, label: "Full-Stack", delay: 0.1 },
-    { icon: <Code size={20} />, label: "React/Next.js", delay: 0.2 },
-    { icon: <Globe size={20} />, label: "Node.js", delay: 0.3 },
-    { icon: <Cpu size={20} />, label: "TypeScript", delay: 0.4 },
-    { icon: <Zap size={20} />, label: "Performance", delay: 0.5 },
-    { icon: <Brain size={20} />, label: "AI/ML", delay: 0.6 },
-    { icon: <Rocket size={20} />, label: "DevOps", delay: 0.7 },
-    { icon: <Target size={20} />, label: "UX/UI", delay: 0.8 },
-  ];
+
 
   return (
     <section
@@ -418,87 +336,45 @@ const About: React.FC = () => {
       <div className="relative z-10 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
           <div className="max-w-4xl mx-auto text-center space-y-16">
-            {/* Optimized Tech Stack Visualization */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="w-full"
-            >
-              <TechStackVisualization />
-              <motion.p
-                className="text-xl text-gray-300 mt-8 leading-relaxed max-w-2xl mx-auto"
-                whileHover={{ scale: 1.005 }}
-                transition={{ duration: 0.2 }}
-              >
-                <TypewriterText
-                  text="Core technologies that power my development stack"
-                  className="text-cyan-400 font-semibold"
-                  delay={1000}
-                  speed={80}
-                />
-                {
-                  " - the essential tools and frameworks I master."
-                }
-              </motion.p>
-            </motion.div>
-
-            {/* Hero Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <motion.h2 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
-                Crafting Digital
-                <br />
-                <span className="relative">
-                  Experiences
-                  <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    viewport={{ once: true }}
-                  />
-                </span>
-              </motion.h2>
-            </motion.div>
-
-            {/* Inspiring Description with Typewriter */}
+            {/* The Digital Craftsman - Enhanced Description */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
-              className="space-y-6"
+              className="space-y-8"
             >
+              {/* Catchy Heading */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <motion.h2
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  🎯 THE DIGITAL CRAFTSMAN
+                </motion.h2>
+              </motion.div>
+
               <motion.p
                 className="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-3xl mx-auto"
                 whileHover={{ scale: 1.005 }}
                 transition={{ duration: 0.2 }}
               >
-                <TypewriterText
-                  text="I'm a visionary developer"
-                  className="text-cyan-400 font-semibold"
-                  delay={1500}
-                  speed={80}
-                  cursor
-                />
-                {" who transforms "}
-                <span className="text-purple-400 font-semibold">
-                  complex ideas
+                <span className="text-cyan-400 font-semibold">
+                  I forge digital dreams into tangible reality,
+                </span>{" "}
+                <span className="text-gray-300">transforming</span>{" "}
+                <span className="text-purple-400 font-semibold">complex visions</span>{" "}
+                <span className="text-gray-300">
+                  into intuitive experiences that captivate and inspire users
+                  worldwide.
                 </span>
-                {" into "}
-                <span className="text-pink-400 font-semibold">
-                  elegant digital solutions
-                </span>
-                {
-                  " with a passion for cutting-edge technology and user-centric design."
-                }
               </motion.p>
 
               <motion.p
@@ -506,15 +382,11 @@ const About: React.FC = () => {
                 whileHover={{ scale: 1.005 }}
                 transition={{ duration: 0.2 }}
               >
-                <TypewriterText
-                  text="Every line of code I write is crafted with precision and innovation,"
-                  className="text-cyan-300"
-                  delay={3000}
-                  speed={60}
-                />
-                {" building bridges between "}
-                <span className="text-purple-300">imagination and reality</span>
-                {" through the power of modern web technologies."}
+                <span className="text-cyan-300">Every character I type carries purpose,</span>{" "}
+                <span className="text-gray-400">
+                  every algorithm I architect bridges the gap between imagination and
+                  innovation, crafting solutions that don't just work—they resonate.
+                </span>
               </motion.p>
             </motion.div>
 
@@ -527,74 +399,6 @@ const About: React.FC = () => {
               className="w-full"
             >
               <StoryTimeline />
-            </motion.div>
-
-            {/* Mobile Timeline (Simplified) */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              viewport={{ once: true }}
-              className="w-full md:hidden"
-            >
-              <div className="space-y-6">
-                <motion.h3
-                  className="text-2xl font-bold text-center text-white"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Development Journey
-                </motion.h3>
-                <div className="space-y-4">
-                  {[
-                    {
-                      year: "2021",
-                      title: "Journey Begins",
-                      description:
-                        "Started coding journey with HTML, CSS, and JavaScript fundamentals.",
-                    },
-                    {
-                      year: "2022",
-                      title: "Web Development",
-                      description:
-                        "Mastered React, Node.js, and built first full-stack applications.",
-                    },
-                    {
-                      year: "2023",
-                      title: "Advanced Tech",
-                      description:
-                        "Dived into TypeScript, GraphQL, and cloud architectures.",
-                    },
-                    {
-                      year: "2024",
-                      title: "Innovation Focus",
-                      description:
-                        "Specialized in AI integrations and 3D web experiences.",
-                    },
-                  ].map((milestone, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="bg-gray-900/50 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-4"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-lg font-bold text-white">
-                          {milestone.title}
-                        </h4>
-                        <span className="text-sm text-cyan-400">
-                          {milestone.year}
-                        </span>
-                      </div>
-                      <p className="text-gray-300 text-sm leading-relaxed">
-                        {milestone.description}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
             </motion.div>
 
             {/* Philosophy Section */}
@@ -618,11 +422,7 @@ const About: React.FC = () => {
                 </motion.div>
               </div>
               <blockquote className="text-lg md:text-xl text-center text-gray-300 italic leading-relaxed">
-                <TypewriterText
-                  text="Innovation distinguishes between a follower and a leader. I don't just build applications - I architect digital experiences that inspire, engage, and transform how people interact with technology."
-                  delay={5000}
-                  speed={40}
-                />
+                Innovation distinguishes between a follower and a leader. I don't just build applications - I architect digital experiences that inspire, engage, and transform how people interact with technology.
               </blockquote>
             </motion.div>
 
@@ -635,8 +435,8 @@ const About: React.FC = () => {
               className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
             >
               {[
-                { number: "50+", label: "Projects Built" },
-                { number: "3+", label: "Years Experience" },
+                { number: "15+", label: "Projects Built" },
+                { number: "3+", label: "Years of hands-on Experience" },
                 { number: "∞", label: "Lines of Code" },
               ].map((stat, index) => (
                 <motion.div
@@ -650,13 +450,9 @@ const About: React.FC = () => {
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 1 + index * 0.5 }}
                     viewport={{ once: true }}
-                  >
-                    <TypewriterText
-                      text={stat.number}
-                      delay={8000 + index * 300}
-                      speed={100}
-                    />
-                  </motion.div>
+      >
+{stat.number === undefined ? fallbackNumber : typeof stat.number !== 'string' ? `${stat.number}+` : stat.number}
+      </motion.div>
                   <div className="text-gray-400 text-sm font-medium">
                     {stat.label}
                   </div>
