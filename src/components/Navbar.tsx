@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-2xl font-bold text-text-primary cursor-pointer"
+          className="text-2xl font-black text-text-primary cursor-pointer navbar-brand"
           onClick={() => scrollToSection('#hero')}
         >
           DK

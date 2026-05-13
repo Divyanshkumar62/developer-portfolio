@@ -46,11 +46,19 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <button className="btn-primary flex items-center gap-2 group w-full sm:w-auto px-8 py-4 text-lg">
+          <a 
+            href={import.meta.env.VITE_RESUME_URL as string} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn-primary flex items-center gap-2 group w-full sm:w-auto px-8 py-4 text-lg no-underline"
+          >
             <FileText size={20} className="transition-transform group-hover:scale-110" />
             View Resume
-          </button>
-          <button className="btn-outline flex items-center gap-2 group w-full sm:w-auto px-8 py-4 text-lg">
+          </a>
+          <button 
+            onClick={() => { document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+            className="btn-outline flex items-center gap-2 group w-full sm:w-auto px-8 py-4 text-lg"
+          >
             <Mail size={20} className="transition-transform group-hover:scale-110" />
             Get In Touch
           </button>
