@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
           className="text-2xl font-black text-text-primary cursor-pointer navbar-brand"
           onClick={() => scrollToSection('#hero')}
         >
-          DK
+          𝓓𝓚
         </motion.div>
 
         {/* Desktop Links */}

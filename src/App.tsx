@@ -24,7 +24,7 @@ function App() {
     };
 
     scroll();
-    const interval = setInterval(scroll, 150);
+    const interval = setInterval(scroll, 200);
     return () => clearInterval(interval);
   }, []);
 

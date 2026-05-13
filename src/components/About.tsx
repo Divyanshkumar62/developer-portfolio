@@ -18,6 +18,33 @@ const themeConfigs = [
     ]
   },
   {
+    folder: 'nature_2', // From your screenshot, this has 1.png through 5.png
+    layers: [
+      { file: '1.png', speed: 0 },    
+      { file: '2.png', speed: 45 },   
+      { file: '3.png', speed: 30 },   
+      { file: '4.png', speed: 15 },     
+    ]
+  },
+  {
+    folder: 'nature_3', // From your screenshot, this has 1.png through 5.png
+    layers: [
+      { file: '1.png', speed: 0 },    
+      { file: '2.png', speed: 45 },   
+      { file: '3.png', speed: 30 },   
+      { file: '4.png', speed: 15 },      
+    ]
+  },
+  {
+    folder: 'nature_4', // From your screenshot, this has 1.png through 5.png
+    layers: [
+      { file: '1.png', speed: 0 },    
+      { file: '2.png', speed: 45 },   
+      { file: '3.png', speed: 30 },   
+      { file: '4.png', speed: 15 },      
+    ]
+  },
+  {
     folder: 'nature_5', // From your screenshot, this has 1.png through 5.png
     layers: [
       { file: '1.png', speed: 0 },    
@@ -25,6 +52,14 @@ const themeConfigs = [
       { file: '3.png', speed: 30 },   
       { file: '4.png', speed: 15 },   
       { file: '5.png', speed: 5 },    
+    ]
+  },
+  {
+    folder: 'nature_6', // From your screenshot, this has 1.png through 5.png
+    layers: [
+      { file: '1.png', speed: 0 },    
+      { file: '2.png', speed: 45 },   
+      { file: '3.png', speed: 30 },    
     ]
   },
   {
