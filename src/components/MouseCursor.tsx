@@ -106,19 +106,19 @@ const MouseCursor: React.FC = () => {
           filter: !isMoving ? 'blur(1px)' : 'blur(0px)',
         }}
       >
-        {/* Main cursor orb - cosmic blue */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-cyan-400 to-blue-600 rounded-full opacity-90 shadow-2xl">
-          <div className="absolute inset-2 rounded-full bg-gradient-to-r from-blue-300 to-cyan-300 opacity-50" />
+        {/* Main cursor orb - Teal */}
+        <div className="absolute inset-0 bg-gradient-to-br from-text-primary via-text-primary/80 to-surface-muted rounded-full opacity-90 shadow-2xl">
+          <div className="absolute inset-2 rounded-full bg-white/20" />
         </div>
 
-        {/* Glow effect - steady cosmic blue */}
+        {/* Glow effect - Teal */}
         <motion.div
           animate={{
             boxShadow: isHovering
-              ? '0 0 20px rgba(30, 64, 175, 0.8), 0 0 30px rgba(6, 182, 212, 0.6)'
+              ? '0 0 25px rgba(162, 238, 222, 0.8), 0 0 40px rgba(16, 86, 75, 0.6)'
               : isMoving
-              ? '0 0 15px rgba(30, 64, 175, 0.6), 0 0 25px rgba(6, 182, 212, 0.4)'
-              : '0 0 10px rgba(30, 64, 175, 0.4), 0 0 15px rgba(6, 182, 212, 0.3)'
+              ? '0 0 15px rgba(162, 238, 222, 0.6), 0 0 25px rgba(16, 86, 75, 0.4)'
+              : '0 0 10px rgba(162, 238, 222, 0.4), 0 0 15px rgba(16, 86, 75, 0.3)'
           }}
           transition={{
             duration: 0.3,

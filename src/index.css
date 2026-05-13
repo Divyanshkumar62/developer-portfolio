@@ -2,128 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
-/* Smooth scrolling for the entire document */
-html {
-  scroll-behavior: smooth;
+:root {
+  --background: #000000;
+  --foreground: #e8e6e3;
+  --primary: #a2eede;
+  --surface-muted: #10564b;
+  --surface-raised: #4e5558;
+  --surface-strong: #151718;
 }
 
-/* Custom scrollbar styling */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  @apply bg-surface-base text-text-secondary font-sans;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface-strong/50 backdrop-blur-md border border-text-primary/10 rounded-token-md;
+  }
+  
+  .btn-primary {
+    @apply px-token-5 py-token-3 bg-surface-muted text-text-primary rounded-token-sm font-semibold transition-all duration-motion-fast hover:brightness-110 active:scale-95;
+  }
+  
+  .btn-outline {
+    @apply px-token-5 py-token-3 border border-text-primary text-text-primary rounded-token-sm font-semibold transition-all duration-motion-fast hover:bg-text-primary/10 active:scale-95;
+  }
+
+  .heading-xl {
+    @apply text-token-3xl font-bold text-text-primary;
+  }
+
+  .heading-lg {
+    @apply text-token-2xl font-bold text-text-primary;
+  }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--surface-muted);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--primary);
 }
 
-
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-/* Custom cursor styles - hide default cursor */
+/* Hide default cursor if using custom one */
 * {
   cursor: none !important;
 }
 
-.cursor-pointer,
-.cursor-pointer * {
-  cursor: none !important;
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-.resize,
-.resize * {
-  cursor: none !important;
+.shimmer-container {
+  @apply relative overflow-hidden;
 }
 
-.grab,
-.grab * {
-  cursor: none !important;
+.shimmer-effect {
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full pointer-events-none;
 }
 
-.grabbing,
-.grabbing * {
-  cursor: none !important;
+.group:hover .shimmer-effect {
+  animation: shimmer 1s forwards;
 }
 
-.text-input,
-.cursor-text,
-.text-input * {
-  cursor: none !important;
+/* parallax scroll */
+@keyframes parallaxScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%; /* Important: Double width so it can loop seamlessly */
+  height: 100%;
+  display: flex;
+}
+
+.parallax-image {
+  width: 50%; /* Each image takes up half the 200% width */
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated; /* Keeps the pixel art crisp */
 }

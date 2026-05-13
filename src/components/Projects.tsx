@@ -59,86 +59,55 @@ const projects: Project[] = [
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      key={project.title}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ delay: index * 0.1 }}
       viewport={{ once: true }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      className="group bg-gray-900/50 backdrop-blur-sm border border-cyan-400/20 rounded-xl overflow-hidden hover:border-cyan-400/40 transition-all duration-300"
+      className="glass-card overflow-hidden bg-surface-strong/30 hover:border-text-primary/30 transition-all duration-300 group shimmer-container flex flex-col h-full"
     >
-      {/* Project Image */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="shimmer-effect" />
+      <div className="relative h-56 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-60" />
-
-        {/* Overlay Buttons */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex space-x-4">
-            <a
-              href={project.liveUrl}
-              className="p-3 bg-cyan-400/20 backdrop-blur-sm border border-cyan-400/50 rounded-full text-cyan-400 hover:bg-cyan-400/30 transition-colors duration-300"
-            >
-              <ExternalLink size={20} />
-            </a>
-            <a
-              href={project.githubUrl}
-              className="p-3 bg-purple-400/20 backdrop-blur-sm border border-purple-400/50 rounded-full text-purple-400 hover:bg-purple-400/30 transition-colors duration-300"
-            >
-              <Github size={20} />
-            </a>
-          </div>
-        </div>
-
-        {/* Featured Badge */}
-        {project.featured && (
-          <div className="absolute top-3 left-3 px-2 py-1 bg-gradient-to-r from-cyan-400 to-purple-400 text-black text-xs font-semibold rounded-full">
-            Featured
-          </div>
-        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-surface-base/90 to-transparent opacity-80" />
       </div>
 
-      {/* Project Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
+      <div className="p-8 flex flex-col flex-grow">
+        <h3 className="text-2xl font-bold text-text-primary mb-3 group-hover:translate-x-1 transition-transform">
           {project.title}
         </h3>
-
-        <p className="text-gray-400 text-sm leading-relaxed mb-4">
+        
+        <p className="text-text-secondary text-sm leading-relaxed mb-6 flex-grow">
           {project.description}
         </p>
 
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tech.map((tech, techIndex) => (
+        <div className="flex flex-wrap gap-2 mb-8">
+          {project.tech.map((tech) => (
             <span
               key={tech}
-              className="px-2 py-1 text-xs font-medium bg-gray-800/60 border border-gray-700 text-gray-300 rounded-full"
+              className="px-3 py-1 text-xs font-medium bg-surface-muted/30 text-text-primary rounded-full border border-text-primary/10"
             >
               {tech}
             </span>
           ))}
         </div>
 
-        {/* Action Links */}
-        <div className="flex space-x-4">
+        <div className="flex items-center gap-6">
           <a
             href={project.liveUrl}
-            className="flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
+            className="flex items-center gap-2 text-text-tertiary hover:text-text-primary transition-colors text-sm font-medium group/link"
           >
-            <ExternalLink size={16} />
-            <span className="text-sm">Live Demo</span>
+            View Live <ExternalLink size={16} className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
           </a>
           <a
             href={project.githubUrl}
-            className="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-300"
+            className="text-text-tertiary hover:text-text-primary transition-colors"
           >
-            <Github size={16} />
-            <span className="text-sm">Source</span>
+            <Github size={20} />
           </a>
         </div>
       </div>
@@ -148,168 +117,27 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
 const Projects: React.FC = () => {
   return (
-    <section
-      id="projects"
-      className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 py-20"
-    >
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+    <section id="projects" className="py-24 bg-transparent relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-          >
-            Featured Projects
-          </motion.h2>
-
-          <motion.div
-            className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full mx-auto mb-6"
-            initial={{ width: 0 }}
-            whileInView={{ width: 96 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-          />
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed"
-          >
-            Where <span className="text-cyan-400 font-semibold">cutting-edge algorithms</span> meet
-            <span className="text-purple-400 font-semibold"> human creativity</span> to forge
-            <span className="text-pink-400 font-semibold"> revolutionary solutions</span> that redefine what's possible.
-          </motion.p>
+          <h2 className="heading-xl inline-block relative">
+            Projects
+            <div className="absolute -bottom-2 left-0 w-full h-1 bg-text-primary/30 rounded-full" />
+          </h2>
+          <p className="mt-6 text-text-secondary max-w-2xl mx-auto">
+            Here are some of my recent projects that showcase my skills and passion for web development.
+          </p>
         </motion.div>
 
-        {/* Projects Grid - Enhanced Responsiveness */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 md:gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
-        </div>
-
-        {/* Open Source & NPM Packages Section */}
-        <div className="text-center">
-          <h3 className="text-2xl font-bold text-white mb-8">
-            Open Source & NPM Packages
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Code Commentor */}
-            <div className="bg-gray-900/30 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6 hover:border-purple-400/40 transition-all duration-300">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h4 className="text-xl font-semibold text-white mb-1 hover:text-purple-400 transition-colors duration-300">
-                    Code Commentor
-                  </h4>
-                  <span className="px-2 py-1 text-xs bg-purple-500/20 text-purple-400 rounded-full">
-                    NPM Package
-                  </span>
-                </div>
-                <div className="flex space-x-2">
-                  <a
-                    href="https://www.npmjs.com/package/codecommentor"
-                    className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={16} />
-                  </a>
-                  <a
-                    href="https://github.com/Divyanshkumar62/code-commentor"
-                    className="text-purple-400 hover:text-purple-300 transition-colors duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github size={16} />
-                  </a>
-                </div>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                An AI-powered tool that automatically generates intelligent and
-                contextual code comments.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  Static Analysis
-                </span>
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  TypeScript
-                </span>
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  NPM
-                </span>
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  CLI
-                </span>
-              </div>
-            </div>
-
-            {/* Env Check TS */}
-            <div className="bg-gray-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 hover:border-cyan-400/40 transition-all duration-300">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h4 className="text-xl font-semibold text-white mb-1 hover:text-cyan-400 transition-colors duration-300">
-                    Env Check TS
-                  </h4>
-                  <span className="px-2 py-1 text-xs bg-cyan-500/20 text-cyan-400 rounded-full">
-                    NPM Package
-                  </span>
-                </div>
-                <div className="flex space-x-2">
-                  <a
-                    href="https://www.npmjs.com/package/env-check-ts?activeTab=readme"
-                    className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={16} />
-                  </a>
-                  <a
-                    href="https://github.com/Divyanshkumar62/env-check-ts-npm-package"
-                    className="text-purple-400 hover:text-purple-300 transition-colors duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github size={16} />
-                  </a>
-                </div>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                TypeScript utility package for environment variable validation
-                with runtime type safety.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  TypeScript
-                </span>
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  Validation
-                </span>
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  NPM
-                </span>
-                <span className="px-2 py-1 text-xs bg-gray-800/60 text-gray-300 rounded-full">
-                  Developer tool
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
