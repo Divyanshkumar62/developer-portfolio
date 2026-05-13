@@ -10,22 +10,21 @@ import MouseCursor from './components/MouseCursor';
 import NodeBackground from './components/NodeBackground';
 import ScrollToTop from './components/ScrollToTop';
 
-const titles = [
-  'Divyansh Kumar | Developer Portfolio',
-  'Divyansh Kumar | Full-Stack Developer',
-  'Divyansh Kumar | Creative Thinker',
-  'Divyansh Kumar | Building the Future',
-];
+const BASE_TITLE = 'Divyansh Kumar | Developer Portfolio';
 
 function App() {
   useEffect(() => {
-    let index = 0;
-    const rotate = () => {
-      document.title = titles[index];
-      index = (index + 1) % titles.length;
+    let position = 0;
+    const padded = BASE_TITLE + '  •  ';
+
+    const scroll = () => {
+      const first = padded.slice(position) + padded.slice(0, position);
+      document.title = first;
+      position = (position + 1) % padded.length;
     };
-    rotate();
-    const interval = setInterval(rotate, 3000);
+
+    scroll();
+    const interval = setInterval(scroll, 150);
     return () => clearInterval(interval);
   }, []);
 
